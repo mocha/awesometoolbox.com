@@ -1,0 +1,112 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Awesome Toolbox{% if page_title %} - {{ page_title }}{% endif %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/screen.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/bootstrap-responsive.css') }}" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript" src="//use.typekit.net/ehb4clt.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <div class="row">
+
+        <div id="sidebar_left" class="span2 sidebar">
+
+          <a id="logo" href="/">awesome<br />toolbox</a>
+
+          <h2 class="sectiontitle">Filter Tools <br/>by category</h2>
+          <ul class="sidebarlist unstyled">
+            <li><a href="/category/webdesign" class="{% if tab == "webdesign" %} active{% endif %}">Web Design</a></li>
+            <li><a href="/category/webdevelopment" class="{% if tab == "webdevelopment" %} active{% endif %}">Web Development</a></li>
+            <li><a href="/category/python" class="{% if tab == "python" %} active{% endif %}">Python</a></li>
+            <li><a href="/category/mysql" class="{% if tab == "mysql" %} active{% endif %}">MySQL</a></li>
+            <li><a href="/category/php" class="{% if tab == "php" %} active{% endif %}">PHP</a></li>
+            <li><a href="/category/css" class="{% if tab == "css" %} active{% endif %}">CSS</a></li>
+          </ul>
+
+          <a class="solo" href="#">+ Add a tool</a>
+
+        </div>
+
+        <div id="content" class="span8">
+          
+          <div id="content_header">
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                {% for category, message in messages %}
+                  <div class="alert">
+                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                  <strong>{{ category|upper }}!</strong> {{ message }}
+                  </div>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+
+            <h1 class="title">{{ page_title }}</h1>
+            {% if page_subtitle %}
+                <p>{{ page_subtitle }}</p>
+            {% endif %}
+          </div>
+
+          {% block body_content %}{% endblock %}
+
+        </div>
+
+
+
+        <div id="sidebar_right" class="span2 sidebar">
+          
+
+          <h2 class="sectiontitle">Your Toolboxes</h2>
+          <ul class="sidebarlist unstyled">
+            <li><a href="/toolbox/alltools" class="{% if tab == "alltools" %} active{% endif %}">All Tools</a></li>
+            <li><a href="/toolbox/devboxv1.0" class="{% if tab == "devboxv1.0" %} active{% endif %}">Devbox v1.0</a></li>
+            <li><a href="/toolbox/designtools" class="{% if tab == "designtools" %} active{% endif %}">Design tools</a></li>
+            <li><a href="/toolbox/junkdrawer" class="{% if tab == "junkdrawer" %} active{% endif %}">Junkdrawer</a></li>
+            <li><a href="/toolbox/new" class="{% if tab == "newtoolbox" %} active{% endif %}">+ New Toolbox</a></li>
+          </ul>
+
+          <h2 class="sectiontitle">User Management</h2>
+          <ul class="sidebarlist unstyled">
+            <li><a href="/settings">Settings</a></li>
+            <li><a href="/logout">Logout</a></li>
+          </ul>
+
+
+        </div>
+
+
+
+
+
+      </div>
+
+    </div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+  </body>
+</html>
+

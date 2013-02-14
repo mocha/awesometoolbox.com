@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block body_content %}
+
+	<p>{{ tool.description }}</p>
+
+	<p>Developer Website: <a href="{{ tool.link }}" target="_blank">{{ tool.link }}</a></p>
+
+	<hr />
+
+	<h2 class="sectiontitle">Meta Info</h2>
+
+	<p>Filed under: {% for category in tool.category %}{{ category }}{% if not loop.last %}, {% endif %}{% endfor %}</p>
+
+	<p>Found in 16 toolboxes. First added by Patrick Deuley</p>
+
+	<hr />
+
+	<h2 class="sectiontitle">Other Tools in Web Design</h2>
+
+	<ul class="unstyled">
+		<li><a href="tool/exampletool">Example Tool 1</a></li>
+		<li><a href="tool/exampletool">Example Tool 1</a></li>
+		<li><a href="tool/exampletool">Example Tool 1</a></li>
+		<li><a href="tool/exampletool">Example Tool 1</a></li>
+	</ul>
+
+	<p><a href="/category/webdesign">&raquo;View all tools in Web Design</a></p>
+
+{% endblock %}
