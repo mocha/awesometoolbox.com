@@ -19,17 +19,18 @@
 		<a href="/tool/{{ tool.id}}/edit">Edit this tool</a>
 	</p>
 
-	<hr />
+	{% if related_tools %}<hr />
 
-	<h2 class="sectiontitle">Other Tools in Web Design</h2>
+	<h2 class="sectiontitle">Other Tools in {{ related_category }}</h2>
 
 	<ul class="unstyled">
-		<li><a href="tool/exampletool">Example Tool 1</a></li>
-		<li><a href="tool/exampletool">Example Tool 1</a></li>
-		<li><a href="tool/exampletool">Example Tool 1</a></li>
-		<li><a href="tool/exampletool">Example Tool 1</a></li>
+		{% for tool in related_tools %}
+		<li><a href="/tool/{{ tool.id }}/{{ tool.slug }}">{{ tool.name }}</a></li>
+		{% endfor %}
 	</ul>
 
-	<p><a href="/category/webdesign">&raquo;View all tools in Web Design</a></p>
+	<p><a href="/category/{{ related_category }}">&raquo;View all tools in {{ related_category }}</a></p>
+
+	{% endif %}
 
 {% endblock %}

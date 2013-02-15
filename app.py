@@ -43,6 +43,8 @@ def pull_categories():
 
     return dict({'categories': sorted(categories)})
 
+
+
 @app.route('/')
 def homepage():
     tab = ""
@@ -103,19 +105,22 @@ def delete_tool(tool_id):
     return redirect(url_for('homepage'))
 
 
-
+from random import choice
 @app.route('/tool/<tool_id>/<toolname>')
 def toolpage(toolname, tool_id):
     tab = ""
     tool = r.table('tools').get(tool_id).run(g.rdb_conn)
     page_title = tool['name']
+    related_category = choice(tool['category'])
 
-    related_tools = "foo" #should pick a random category and pull 5 tools from it
+    related_tools = r.table('tools').filter(lambda row: row['category'].filter(lambda attr: attr == related_category).count() > 0).filter(lambda row: row['name']!=tool['name']).pluck('name').run()
+    if list(related_tools).__len__() == 0: related_tools = False
 
     return render_template('tool_page.html', 
                   tab = tab, 
            page_title = page_title, 
                  tool = tool,
+     related_category = related_category,
         related_tools = related_tools,
     )   
 

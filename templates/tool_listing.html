@@ -10,7 +10,7 @@
       <span class="toolstats">Filed under {% for category in tool.category %}{{ category }}{% if not loop.last %}, {% endif %}{% endfor %} / Found in 6 toolboxes</span>
       <div class="toolactions">
         <a href="" class="addtool">Add this to a toolbox</a>
-        <a href="" class="viewtool">View tool details</a>
+        <a href="/tool/{{ tool.id }}/{{ tool.slug }}" class="viewtool">View tool details</a>
       </div>
     </div>
 
