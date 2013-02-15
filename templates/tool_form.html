@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block body_content %}
+
+	<form action="" method="POST">
+		
+		<ul class="unstyled">
+
+			<li class="form-item">
+				<label for="name">Tool Name:</label>
+				<input type="text" name="name" id="name" />
+			</li>
+
+			<li class="form-item">
+				<label for="">Tool Description:</label>
+				<textarea name="description" id="description"></textarea>
+			</li>
+
+			<li class="form-item">
+				<label for="link">Tool Link:</label>
+				<input type="text" name="link" id="link" />
+			</li>
+
+			<li class="form-item">
+				<label for="category">Tool Category:</label>
+				<input type="textarea" name="category" id="category" />
+				<p class="helptext">Use commas to separate tags.</p>
+			</li>
+
+			<li class="form-item">
+				<input type="submit" class="btn btn-primary" value="Submit" />
+			</li>
+
+		</ul>
+
+	</form>
+
+{% endblock %}

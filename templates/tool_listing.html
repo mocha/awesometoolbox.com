@@ -5,7 +5,7 @@
   {% for tool in tools %}
     
     <div class="tool_listing clearfix">
-      <span class="tooltitle"><a href="tool/{{ tool.id }}/{{ tool.slug }}">{{ tool.name }}</a></span>
+      <span class="tooltitle"><a href="/tool/{{ tool.id }}/{{ tool.slug }}">{{ tool.name }}</a></span>
       <span class="tooldescription">{{ tool.description }}</span>
       <span class="toolstats">Filed under {% for category in tool.category %}{{ category }}{% if not loop.last %}, {% endif %}{% endfor %} / Found in 6 toolboxes</span>
       <div class="toolactions">

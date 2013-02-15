@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
+    <link href="{{ url_for('static', filename='img/favicon.ico') }}" rel="icon" type="image/x-icon" />
 
     <!-- Le styles -->
     <link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet">
@@ -35,15 +36,12 @@
 
           <h2 class="sectiontitle">Filter Tools <br/>by category</h2>
           <ul class="sidebarlist unstyled">
-            <li><a href="/category/webdesign" class="{% if tab == "webdesign" %} active{% endif %}">Web Design</a></li>
-            <li><a href="/category/webdevelopment" class="{% if tab == "webdevelopment" %} active{% endif %}">Web Development</a></li>
-            <li><a href="/category/python" class="{% if tab == "python" %} active{% endif %}">Python</a></li>
-            <li><a href="/category/mysql" class="{% if tab == "mysql" %} active{% endif %}">MySQL</a></li>
-            <li><a href="/category/php" class="{% if tab == "php" %} active{% endif %}">PHP</a></li>
-            <li><a href="/category/css" class="{% if tab == "css" %} active{% endif %}">CSS</a></li>
+            {% for category in categories %}
+            <li><a href="/category/{{ category }}">{{ category }}</a></li>
+            {% endfor %}
           </ul>
 
-          <a class="solo" href="#">+ Add a tool</a>
+          <a class="solo" href="/tool/new">+ Add a tool</a>
 
         </div>
 
@@ -54,8 +52,7 @@
             {% with messages = get_flashed_messages(with_categories=true) %}
               {% if messages %}
                 {% for category, message in messages %}
-                  <div class="alert">
-                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                  <div class="alert alert-{{ category }}">
                   <strong>{{ category|upper }}!</strong> {{ message }}
                   </div>
                 {% endfor %}
