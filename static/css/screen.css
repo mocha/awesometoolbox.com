@@ -58,6 +58,7 @@ h2.sectiontitle,
 .sidebar ul li a {
   padding: 5px 10px;
   display: block;
+  margin-bottom: 1px;
 }
 
 .sidebar a.solo {
@@ -107,10 +108,6 @@ h2.sectiontitle,
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
 }
 
-{
-
-}
-
 .tooltitle {
   display: block;
   font-size: 2em;
@@ -157,11 +154,13 @@ h2.sectiontitle,
   padding: 5px 10px;
 }
 
-.tool_listing:hover .toolactions a {
+.tool_listing:hover .toolactions a,
+.cardbg .toolactions a {
   color: #666;
 }
 
-.tool_listing:hover .toolactions a:hover {
+.tool_listing:hover .toolactions a:hover,
+.cardbg .toolactions a:hover {
   background: #f5f5f5;
   text-decoration: none;
   color: #08c;
@@ -171,9 +170,27 @@ h2.sectiontitle,
 
 
 
+a.plainbutton {
+  text-transform: uppercase;
+  font-size: .8em;
+  display: inline-block;
+  color: #666;
+  padding: 5px 10px;
+}
 
+a.plainbutton:hover {
+  background: #f5f5f5;
+  text-decoration: none;
+  color: #08c;
+}
 
-
+.cardbg {
+  margin-bottom: 40px;
+  padding: 20px;
+  color: #333;
+  background: white;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+}
 
 
 

@@ -7,7 +7,8 @@
     <div class="tool_listing clearfix">
       <span class="tooltitle"><a href="/tool/{{ tool.id }}/{{ tool.slug }}">{{ tool.name }}</a></span>
       <span class="tooldescription">{{ tool.description }}</span>
-      <span class="toolstats">Filed under {% for category in tool.category %}{{ category }}{% if not loop.last %}, {% endif %}{% endfor %} / Found in 6 toolboxes</span>
+      <span class="toolstats">Filed under {% for category in tool.category %}<a href="/category/{{ category }}">{{ category }}</a>{% if not loop.last %}, {% endif %}{% endfor %}
+      {#  / Found in N toolboxes #}</span>
       <div class="toolactions">
         <a href="" class="addtool">Add this to a toolbox</a>
         <a href="/tool/{{ tool.id }}/{{ tool.slug }}" class="viewtool">View tool details</a>

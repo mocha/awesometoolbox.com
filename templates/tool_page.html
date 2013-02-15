@@ -2,24 +2,26 @@
 
 {% block body_content %}
 
-	<p>{{ tool.description }}</p>
+	<div class="cardbg clearfix">
 
-	<p>Developer Website: <a href="{{ tool.link }}" target="_blank">{{ tool.link }}</a></p>
+		<p>{{ tool.description }}</p>
 
-	<hr />
+		<p>Developer Website: <a href="{{ tool.link }}" target="_blank">{{ tool.link }}</a></p>
 
-	<h2 class="sectiontitle">Meta Info</h2>
+		<p>Filed under {% for category in tool.category %}<a href="/category/{{ category }}">{{ category }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</p>
 
-	<p>Filed under: {% for category in tool.category %}{{ category }}{% if not loop.last %}, {% endif %}{% endfor %}</p>
+		{# <p>Found in N toolboxes. First added by Firstname Lastname.</p> #}
 
-	<p>Found in 16 toolboxes. First added by Patrick Deuley</p>
 
-	<p>
-		<a href="/tool/{{ tool.id}}/delete">Delete this tool</a> / 
-		<a href="/tool/{{ tool.id}}/edit">Edit this tool</a>
-	</p>
+			<div class="toolactions">
+				<a href="/tool/{{ tool.id}}/delete">Delete this tool</a>
+				<a href="/tool/{{ tool.id}}/edit">Edit this tool</a>
+			</div>
 
-	{% if related_tools %}<hr />
+	</div>
+
+
+	{% if related_tools %}
 
 	<h2 class="sectiontitle">Other Tools in {{ related_category }}</h2>
 
@@ -32,5 +34,6 @@
 	<p><a href="/category/{{ related_category }}">&raquo;View all tools in {{ related_category }}</a></p>
 
 	{% endif %}
+
 
 {% endblock %}

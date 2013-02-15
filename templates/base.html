@@ -37,7 +37,7 @@
           <h2 class="sectiontitle">Filter Tools <br/>by category</h2>
           <ul class="sidebarlist unstyled">
             {% for category in categories %}
-            <li><a href="/category/{{ category }}">{{ category }}</a></li>
+            <li><a href="/category/{{ category }}" class="{% if category == page_title %} active{% endif %}">{{ category }}</a></li>
             {% endfor %}
           </ul>
 
