@@ -1,5 +1,7 @@
 from flask import Flask, flash, redirect, render_template, request, url_for, g, jsonify, json
 from rethinkdb import r
+from forms import ToolForm
+from helpers import url_exists
 
 RDB_HOST = 'localhost'
 RDB_PORT = 28015
@@ -11,6 +13,7 @@ def dbSetup():
     try:
         connection.run(r.db_create(DB_NAME))
         connection.run(r.db(DB_NAME).table_create('tools'))
+        connection.run(r.db(DB_NAME).table_create('users'))
         print 'Database setup completed. Now run the app without --setup.'
     except Exception:
         print 'App database already exists. Run the app without --setup.'
@@ -19,8 +22,14 @@ def dbSetup():
 
 
 app = Flask(__name__)
+
+# app settings
+
 app.secret_key = 'Jordan is a bozo'
 
+
+
+# db setup and teardown stuff
 
 @app.before_request
 def before_request():
@@ -29,6 +38,10 @@ def before_request():
 @app.teardown_request
 def teardown_request(exception):
     g.rdb_conn.close()
+
+
+
+# context processors
 
 @app.context_processor
 def pull_categories():
@@ -45,6 +58,7 @@ def pull_categories():
 
 
 
+# actual app views begin
 @app.route('/')
 def homepage():
     tab = ""
@@ -67,29 +81,42 @@ def new_tool():
     
     page_title = "Add tool"
 
+    if request.form:
+        form = request.form
+    else:
+        form = ToolForm()
+
     if request.method == 'POST':
         
-        # todo: should be checking for user auth
+        if not request.form['name'] or not request.form['description'] or not request.form['category'] or not request.form['link']:
+            flash('This form isn\'t very long. Go ahead and try again.', 'error')
 
-        slug = sub('[^A-Za-z0-9]+', '', request.form['name'].lower())
+        elif r.table('tools').filter({'name':request.form['name']}).count().run(g.rdb_conn) != 0:
+            flash('That tool already seems to exist.', 'error')
 
-        insertion = r.table('tools').insert({
-                   'name': request.form['name'], # todo: need to make this check for uniqueness
-            'description': request.form['description'],
-               'category': request.form['category'].replace(", ", ",").split(','), 
-                   'link': request.form['link'],
-                   'slug': slug , # todo: need to make this check for uniqueness
-        }).run(g.rdb_conn)
+        elif not url_exists(request.form['link']):
+            flash('That url doesn\'t seem quite right.', 'error')
 
-        if insertion['errors'] == 0:
-            flash('Thanks for adding your tool!', 'success')
-            return redirect('/tool/' + str(insertion['generated_keys'][0]) + "/" + slug)
-                # return redirect(url_for('toolpage', tool_id = str(insertion['generated_keys'][0])))
-                # should be using url_for as above, but it kept throwing a builderror
-        
-        else: flash('There was some sort of error that happened. :-(', 'error')
+        else:
+            slug = sub('[^A-Za-z0-9]+', '', request.form['name'].lower())
 
-    return render_template('tool_form.html')
+            insertion = r.table('tools').insert({
+                       'name': request.form['name'], # todo: need to make this check for uniqueness
+                'description': request.form['description'],
+                   'category': request.form['category'].replace(", ", ",").split(','), 
+                       'link': request.form['link'],
+                       'slug': slug,
+            }).run(g.rdb_conn)
+
+            if insertion['errors'] == 0:
+                flash('Thanks for adding your tool!', 'success')
+                return redirect('/tool/' + str(insertion['generated_keys'][0]) + "/" + slug)
+                    # return redirect(url_for('toolpage', tool_id = str(insertion['generated_keys'][0])))
+                    # should be using url_for as above, but it kept throwing a builderror
+            
+            else: flash('AH FUCK', 'error')
+
+    return render_template('tool_form.html', form=form)
 
 
 

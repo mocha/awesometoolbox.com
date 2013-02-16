@@ -8,22 +8,23 @@
 
 			<li class="form-item">
 				<label for="name">Tool Name:</label>
-				<input type="text" name="name" id="name" />
+				<input type="text" name="name" id="name" value="{{ form.name }}" />
 			</li>
 
 			<li class="form-item">
 				<label for="">Tool Description:</label>
-				<textarea name="description" id="description"></textarea>
+				<textarea name="description" id="description">{{ form.description }}</textarea>
 			</li>
 
 			<li class="form-item">
 				<label for="link">Tool Link:</label>
-				<input type="text" name="link" id="link" />
+				<input type="text" name="link" id="link" value="{{ form.link }}" />
+				<p class="helptext">ex: http://google.com</p>
 			</li>
 
 			<li class="form-item">
 				<label for="category">Tool Category:</label>
-				<input type="textarea" name="category" id="category" />
+				<input type="textarea" name="category" id="category" value="{{ form.category }}" />
 				<p class="helptext">Use commas to separate tags.</p>
 			</li>
 
