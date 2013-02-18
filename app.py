@@ -14,6 +14,8 @@ def dbSetup():
         connection.run(r.db_create(DB_NAME))
         connection.run(r.db(DB_NAME).table_create('tools'))
         connection.run(r.db(DB_NAME).table_create('users'))
+        connection.run(r.db(DB_NAME).table_create('categories'))
+        connection.run(r.db(DB_NAME).table_create('toolboxes'))
         print 'Database setup completed. Now run the app without --setup.'
     except Exception:
         print 'App database already exists. Run the app without --setup.'
